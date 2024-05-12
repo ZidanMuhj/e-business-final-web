@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JASA WEB DEVELOPER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="src/app.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <nav class="navbar" x-data>
+      <a href="#" class="navbar-logo">Njid<span> Webs.</span></a>
+      <div class="navbar-nav">
+        <a href="#home">Home</a>
+        <a href="#about">Tentang Kami</a>
+        <a href="#menu">Services</a>
+        <a href="#products">Jasa</a>
+        <a href="#contact">Kontak</a>
+        <a href="#detail">Detail</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#home" id="search-button"><i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart-button">
+          <i data-feather="shopping-cart"></i>
+          <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+        </a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+
+      <!-- SEARCH FORM START -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="Cari Disini..." />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+      <!-- SEARCH FORM END -->
+
+      <!-- SHOPPING CART -->
+      <div class="shopping-cart">
+        <template x-for="(item, index) in $store.cart.items" x-keys="index">
+        <div class="cart-item">
+          <img :src="`img/products/${item.img}`" :alt="item.name" />
+          <div class="item-detail">
+            <h3 x-text="item.name"></h3>
+            <div class="item-price">
+              <span x-text="rupiah(item.price)"></span> &times;
+              <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+              <span x-text="item.quantity"></span>
+              <button id="add" @click="$store.cart.add(item)">&plus;</button> &equals;
+              <span x-text="rupiah(item.total)"></span>
+            </div>
+          </div>
+        </div>
+      </template>
+      <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">Cart is Empty</h4>
+      <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+
+      <div class="form-container" x-show="$store.cart.items.length">
+        <form action="" id="checkoutForm">
+          <h5>Customer Detail</h5>
+          <label for="name">
+            <span>Name</span>
+            <input type="text" name="name" id="name">
+          </label>
+          <label for="email">
+            <span>Email</span>
+            <input type="email" name="email" id="email">
+          </label>
+          <label for="phone">
+            <span>Phone</span>
+            <input type="Number" name="phone" id="phone" autocomplete="off">
+          </label>
+          <div class="checkout-button" type="submit" id="checkout-button" value="checkout">Checkout</div>
+        </form>
+        <a href="https://api.whatsapp.com/send/?phone=081287914200&text&type=phone_number&app_absent=0"><i data-feather="phone"></i></a>
+      </div>
+      </div>
+      <!-- SHOPPING CART -->
+
+    </nav>
+    <section class="hero" id="home">
+      <main class="content">
+        <h1>Jasa Pembuatan<span> Website</span> Untuk Anda!</h1>
+        <p>Dapatkan kemudahan dalam membuat website seperti yang kamu inginkan. Website langsung siap pakai!</p>
+        <a href="https://api.whatsapp.com/send/?phone=081287914200&text&type=phone_number&app_absent=0" class="cta">Order Now</a>
+      </main>
+    </section>
+    <section id="about" class="about">
+      <h2><span>Tentang</span> Kami</h2>
+      <div class="row">
+        <div class="about-img">
+          <img src="img/tentang-kami.jpg" alt="Tentang Kami" />
+        </div>
+        <div class="content">
+          <h3>Kenapa memilih jasa kami?</h3>
+          <p>Karena kami telah berhasil melakukan pengerjaan kepada client lebih dari 100+</p>
+          <p>Kami mengerjakan dengan teliti, tepat dan cepat. Sehingga client tidak akan kecewa dengan jasa kami</p>
+        </div>
+      </div>
+    </section>
+    <section id="menu" class="menu">
+      <h2><span>Jasa</span> Kami</h2>
+      <p>Kami menyediakan beberapa jasa untuk anda dengan beberapa pilihan.</p>
+
+      <div class="row">
+        <div class="menu-card">
+          <img src="img/menu/1.jpg" alt="shop" class="menu-card-img" />
+          <h3 class="menu-card-title">~ Shopping Web ~</h3>
+          <p class="menu-card-price">IDR 500.000</p>
+        </div>
+        <div class="menu-card">
+          <img src="img/menu/2.jpg" alt="shop" class="menu-card-img" />
+          <h3 class="menu-card-title">~ Application Software ~</h3>
+          <p class="menu-card-price">IDR 1.000.000</p>
+        </div>
+        <div class="menu-card">
+          <img src="img/menu/3.jpg" alt="shop" class="menu-card-img" />
+          <h3 class="menu-card-title">~ Portofolio Web ~</h3>
+          <p class="menu-card-price">IDR 200.000</p>
+        </div>
+      </div>
+
+      <!-- PRODUCT -->
+      <section class="products" id="products" x-data="products">
+        <h2>Jasa <span>Unggulan</span> Kami</h2>
+        <p>Berikut adalah jasa unggulan kami, silahkan di order !</p>
+
+        <div class="row">
+          <template x-for="(item, index) in items" x-key="index"> 
+          <div class="product-card">
+            <div class="product-icons">
+              <a href="#" @click.prevent="$store.cart.add(item)">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round">
+                <use href="img/feather-sprite.svg#shopping-cart" />
+                </svg>
+              </a>
+              <a href="#" class="item-detail-button">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round">
+                <use href="img/feather-sprite.svg#eye" />
+                </svg>
+              </a>
+            </div>
+            <div class="product-image">
+              <img :src="`img/products/${item.img}`" :alt="item.name" />
+            </div>
+            <div class="product-content">
+              <h3 x-text="item.name"></h3>
+              <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
+            </div>           
+          </div>
+        </template>
+        </div>
+      </section>
+      <!-- PRODUCT -->
+
+    <!-- DETAIL -->
+    <div class="judul-detail">
+      <h2>Produk <span>Detail</span> Kami</h2>
+        <p>Berikut adalah detail produk yang kami miliki.</p>
+    </div>
+    <div class="row-detail" id="detail">
+      <div class="detail-image">
+        <h1>Web Design</h1>
+        <img src="img/products/1-1.jpg" alt="Product 1">
+        <p>Web Design untuk website pribadi dan e-commerce milik anda menggunakan HTML, CSS, JS, dll.
+          Cocok untuk anda yang ingin membuat desain yang anda sukai.</p>
+      </div>
+      <div class="detail-image">
+        <h1>Application Software </h1>
+        <img src="img/products/2.jpg" alt="Product 2">
+        <p>Aplikasi untuk pengguna yang responsive agar pengguna dapat mengoperasikan sesuai dengan yang diinginkan</p>
+      </div>
+      <div class="detail-image">
+        <h1>Shopping Website</h1>
+        <img src="img/products/3-3.jpg" alt="Product 3">
+        <p>Shopping Website untuk bisnis digital anda, seperti e-commerce ataupun lainnya</p>
+      </div>
+      <div class="detail-image">
+        <h1>Portfolio</h1>
+        <img src="img/products/4.png" alt="Product 4">
+        <p>Portfolio untuk profile anda dibuat dengan visual yang menarik dan responsive</p>
+      </div>
+    </div>
+    <!-- DETAIL -->
+
+    </section>
+    <section id="contact" class="contact">
+      <h2><span>Kontak</span> Kami</h2>
+      <p>Silahkan hubungi kontak saya jika ada yang ingin ditanyakan.</p>
+      <div class="row">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15864.898380530902!2d106.84314289942445!3d-6.234097311842813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f39fac4fc8ff%3A0x3af432778c5204d8!2sKb.%20Baru%2C%20Kec.%20Tebet%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1710756020767!5m2!1sid!2sid"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="map"
+        ></iframe>
+
+        <form action="">
+          <div class="input-group">
+            <i data-feather="user"></i>
+            <input type="text" placeholder="Nama" />
+          </div>
+          <div class="input-group">
+            <i data-feather="mail"></i>
+            <input type="text" placeholder="Email" />
+          </div>
+          <div class="input-group">
+            <i data-feather="phone"></i>
+            <input type="text" placeholder="Nomor Hp" />
+          </div>
+          <button type="submit" class="btn">Kirim Pesan</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div class="socials">
+        <a href="https://www.instagram.com/ziidanmuhj"><i data-feather="instagram"></i></a>
+        <a href="https://twitter.com/ziidanmuhj"><i data-feather="twitter"></i></a>
+        <a href="https://api.whatsapp.com/send/?phone=081287914200&text&type=phone_number&app_absent=0"><i data-feather="phone"></i></a>
+      </div>
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#about">Tentang Kami</a>
+        <a href="#menu">Services</a>
+        <a href="#contact">Kontak</a>
+      </div>
+      <div class="credit">
+        <p>Created by <a href="">ZiidanMuhj</a> | &copy; 2024.</p>
+      </div>
+    </footer>
+
+    <!-- BOX ITEM DETAIL -->
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/products/1.jpg" alt="Product 1" />
+          <div class="product-content">
+            <h3>Product 1</h3>
+            <p>Web Design andalan adalah produk yang kami ciptakan untuk client kami!</p>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+            <div class="product-price">IDR 750.000 <span>IDR 950.000</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i> <span>Add to Cart</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container-2">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/products/2.jpg" alt="Product 1" />
+          <div class="product-content">
+            <h3>Product 2</h3>
+            <p>Berikut adalah produk unggulan kami, silahkan order !</p>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+            <div class="product-price">IDR 200.000 <span>IDR 500.000</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i> <span>Add to Cart</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/products/3.PNG" alt="Product 1" />
+          <div class="product-content">
+            <h3>Product 3</h3>
+            <p>Berikut adalah produk unggulan kami, silahkan order !</p>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+            <div class="product-price">IDR 200.000 <span>IDR 500.000</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i> <span>Add to Cart</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/products/4.png" alt="Product 1" />
+          <div class="product-content">
+            <h3>Product 4</h3>
+            <p>Berikut adalah produk unggulan kami, silahkan order !</p>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+            <div class="product-price">IDR 200.000 <span>IDR 500.000</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i> <span>Add to Cart</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- BOX ITEM DETAIL -->
+
+    <script>
+      feather.replace();
+    </script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
